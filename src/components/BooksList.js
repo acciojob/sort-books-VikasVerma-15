@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSortBy, setOrder } from "../redux/booksSlice";
 
@@ -7,11 +6,8 @@ const BooksList = () => {
   const { books, sortBy, order } = useSelector((state) => state.books);
 
   const sortedBooks = [...books].sort((a, b) => {
-    const aVal = a[sortBy].toLowerCase();
-    const bVal = b[sortBy].toLowerCase();
-
-    if (aVal < bVal) return order === "asc" ? -1 : 1;
-    if (aVal > bVal) return order === "asc" ? 1 : -1;
+    if (a[sortBy] < b[sortBy]) return order === "asc" ? -1 : 1;
+    if (a[sortBy] > b[sortBy]) return order === "asc" ? 1 : -1;
     return 0;
   });
 
@@ -19,17 +15,17 @@ const BooksList = () => {
     <div>
       <h1>Books List</h1>
 
-      {/* SORT BY — MUST BE FIRST CHILD */}
+      {/* Sort By */}
       <select
         value={sortBy}
         onChange={(e) => dispatch(setSortBy(e.target.value))}
       >
         <option value="title">Title</option>
         <option value="author">Author</option>
-        <option value="publisher">Publisher</option>
+        <option value="year">Year</option>
       </select>
 
-      {/* ORDER — MUST BE SECOND CHILD */}
+      {/* Order */}
       <select
         value={order}
         onChange={(e) => dispatch(setOrder(e.target.value))}
@@ -38,14 +34,12 @@ const BooksList = () => {
         <option value="desc">Descending</option>
       </select>
 
-      {/* TABLE */}
       <table>
         <thead>
           <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Publisher</th>
-            <th>ISBN</th>
+            <th>Year</th>
           </tr>
         </thead>
         <tbody>
@@ -53,8 +47,7 @@ const BooksList = () => {
             <tr key={book.id}>
               <td>{book.title}</td>
               <td>{book.author}</td>
-              <td>{book.publisher}</td>
-              <td>{book.isbn}</td>
+              <td>{book.year}</td>
             </tr>
           ))}
         </tbody>

@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// EXACTLY 60 BOOKS
+// EXACTLY 60 books
 const booksData = Array.from({ length: 60 }, (_, i) => ({
   id: i + 1,
-  title: `Book ${String.fromCharCode(65 + (i % 26))} ${i}`,
+  title: `Book ${String.fromCharCode(65 + (i % 26))}`,
   author: `Author ${i}`,
-  publisher: `Publisher ${i}`,
-  isbn: `ISBN-${i}`
+  year: 2000 + (i % 20),
 }));
 
 const booksSlice = createSlice({
@@ -14,7 +13,7 @@ const booksSlice = createSlice({
   initialState: {
     books: booksData,
     sortBy: "title",
-    order: "asc"
+    order: "asc",
   },
   reducers: {
     setSortBy(state, action) {
@@ -22,8 +21,8 @@ const booksSlice = createSlice({
     },
     setOrder(state, action) {
       state.order = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { setSortBy, setOrder } = booksSlice.actions;

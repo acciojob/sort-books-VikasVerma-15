@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const booksSlice = createSlice({
   name: "books",
   initialState: {
-    list: [],
-    sortBy: "title"
+  books: [],        // ✅ ARRAY, NOT undefined
+  sortBy: "title",
+  order: "asc",
   },
   reducers: {
     setBooks(state, action) {

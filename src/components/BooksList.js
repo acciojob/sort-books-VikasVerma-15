@@ -5,8 +5,9 @@ import { fetchBooks, setSort } from "../redux/booksSlice";
 const BooksList = () => {
   const dispatch = useDispatch();
 
-  const { books, sortBy, order } = useSelector((state) => state.books);
-
+ const { books = [], sortBy, order } = useSelector(
+  (state) => state.books || {}
+);
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);

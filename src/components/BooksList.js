@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks, setSort } from "../redux/booksSlice";
 
@@ -12,8 +11,8 @@ const BooksList = () => {
   }, [dispatch]);
 
   const sortedBooks = [...books].sort((a, b) => {
-    const aVal = a[sortBy].toLowerCase();
-    const bVal = b[sortBy].toLowerCase();
+    const aVal = (a[sortBy] || "").toLowerCase();
+    const bVal = (b[sortBy] || "").toLowerCase();
 
     if (aVal < bVal) return order === "asc" ? -1 : 1;
     if (aVal > bVal) return order === "asc" ? 1 : -1;
@@ -22,64 +21,47 @@ const BooksList = () => {
 
   return (
     <div>
-    
       <h1>Books List</h1>
 
-     
-      <label>
-        Sort By
-        <select
-          value={sortBy}
-          onChange={(e) =>
-            dispatch(setSort({ sortBy: e.target.value, order }))
-          }
-        >
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="publisher">Publisher</option>
-        </select>
-      </label>
+      <label>Sort by:</label>
+      <select
+        value={sortBy}
+        onChange={(e) =>
+          dispatch(setSort({ sortBy: e.target.value, order }))
+        }
+      >
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="publisher">Publisher</option>
+      </select>
 
-     
-      <label>
-        Order
-        <select
-          value={order}
-          onChange={(e) =>
-            dispatch(setSort({ sortBy, order: e.target.value }))
-          }
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </label>
+      <label>Order:</label>
+      <select
+        value={order}
+        onChange={(e) =>
+          dispatch(setSort({ sortBy, order: e.target.value }))
+        }
+      >
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
 
-      
       <table>
         <thead>
           <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Publisher</th>
-            <th>ISBN</th>
           </tr>
         </thead>
         <tbody>
-        
-          {sortedBooks.length > 0 ? (
-            sortedBooks.map((book, index) => (
-              <tr key={index}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.publisher}</td>
-                <td>{book.isbn}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">No books available</td>
+          {sortedBooks.map((book, index) => (
+            <tr key={index}>
+              <td>{book.title}</td>
+              <td>{book.author}</td>
+              <td>{book.publisher}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
@@ -87,3 +69,4 @@ const BooksList = () => {
 };
 
 export default BooksList;
+

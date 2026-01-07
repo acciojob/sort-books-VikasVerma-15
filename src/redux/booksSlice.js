@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const booksSlice = createSlice({
   name: "books",
   initialState: {
-  books: [],        // ✅ ARRAY, NOT undefined
+   books: [
+    { title: "A", author: "B", publisher: "C", isbn: "123" },
+    { title: "X", author: "Y", publisher: "Z", isbn: "456" }
+  ],
   sortBy: "title",
   order: "asc",
   },

@@ -26,32 +26,31 @@ const BooksList = () => {
       <h1>Books List</h1>
 
       {/* Sort By */}
-      <label htmlFor="sortBy">Sort by:</label>
-      <select
-        id="sortBy"
-        value={sortBy}
-        onChange={(e) =>
-          dispatch(setSort({ sortBy: e.target.value, order }))
-        }
-      >
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="publisher">Publisher</option>
-      </select>
+<label htmlFor="sortBy">Sort by:</label>
+<select
+  id="sortBy"
+  value={sortBy}
+  onChange={(e) =>
+    dispatch(setSort({ sortBy: e.target.value, order }))
+  }
+>
+  <option value="title">Title</option>
+  <option value="author">Author</option>
+  <option value="publisher">Publisher</option>
+</select>
 
-      {/* Order */}
-      <label htmlFor="order">Order:</label>
-      <select
-        id="order"
-        value={order}
-        onChange={(e) =>
-          dispatch(setSort({ sortBy, order: e.target.value }))
-        }
-      >
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-      </select>
-
+{/* Order */}
+<label htmlFor="order">Order:</label>
+<select
+  id="order"
+  value={order}
+  onChange={(e) =>
+    dispatch(setSort({ sortBy, order: e.target.value }))
+  }
+>
+  <option value="asc">Ascending</option>
+  <option value="desc">Descending</option>
+</select>
       <table>
         <thead>
           <tr>
@@ -62,15 +61,21 @@ const BooksList = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedBooks.map((book, index) => (
-            <tr key={index}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.publisher}</td>
-              <td>{book.isbn}</td>
-            </tr>
-          ))}
-        </tbody>
+  {books.length > 0 ? (
+    sortedBooks.map((book, index) => (
+      <tr key={index}>
+        <td>{book.title}</td>
+        <td>{book.author}</td>
+        <td>{book.publisher}</td>
+        <td>{book.isbn}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4">No books available</td>
+    </tr>
+  )}
+</tbody>
       </table>
     </div>
   );

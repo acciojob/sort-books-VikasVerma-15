@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setSortBy, setOrder } from "../features/booksSlice";
+import { setSortBy, setOrder } from "../redux/booksSlice";
 
 const BooksList = () => {
   const dispatch = useDispatch();

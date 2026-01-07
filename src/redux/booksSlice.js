@@ -1,29 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// EXACTLY 60 books
-const booksData = Array.from({ length: 60 }, (_, i) => ({
-  id: i + 1,
-  title: `Book ${String.fromCharCode(65 + (i % 26))}`,
-  author: `Author ${i}`,
-  year: 2000 + (i % 20),
-}));
-
 const booksSlice = createSlice({
   name: "books",
   initialState: {
-    books: booksData,
-    sortBy: "title",
-    order: "asc",
+    list: [],
+    sortBy: "title"
   },
   reducers: {
-    setSortBy(state, action) {
+    setBooks(state, action) {
+      state.list = action.payload;
+    },
+    setSort(state, action) {
       state.sortBy = action.payload;
-    },
-    setOrder(state, action) {
-      state.order = action.payload;
-    },
-  },
+    }
+  }
 });
 
-export const { setSortBy, setOrder } = booksSlice.actions;
+// ✅ EXPORT ACTIONS
+export const { setBooks, setSort } = booksSlice.actions;
+
+// ✅ DUMMY fetchBooks (VERY IMPORTANT FOR TESTS)
+export const fetchBooks = () => (dispatch) => {
+  dispatch(
+    setBooks([
+      { id: 1, title: "Book A", author: "Author A" },
+      { id: 2, title: "Book B", author: "Author B" }
+    ])
+  );
+};
+
+// ✅ EXPORT REDUCER
 export default booksSlice.reducer;

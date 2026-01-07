@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks, setSort } from "../redux/booksSlice";
 
-const BooksList = ({ books, sortBy, order, fetchBooks, setSort }) => {
+const BooksList = () => {
+  const dispatch = useDispatch();
+
+  const { books, sortBy, order } = useSelector((state) => state.books);
 
   useEffect(() => {
-    fetchBooks();
-  }, [fetchBooks]);
+    dispatch(fetchBooks());
+  }, [dispatch]);
 
   const sortedBooks = [...books].sort((a, b) => {
     const aVal = a[sortBy].toLowerCase();
@@ -21,20 +24,28 @@ const BooksList = ({ books, sortBy, order, fetchBooks, setSort }) => {
     <div>
       <h1>Books List</h1>
 
-      <label>Sort by</label>
+      {/* Sort By */}
+      <label htmlFor="sortBy">Sort by</label>
       <select
+        id="sortBy"
         value={sortBy}
-        onChange={(e) => setSort({ sortBy: e.target.value, order })}
+        onChange={(e) =>
+          dispatch(setSort({ sortBy: e.target.value, order }))
+        }
       >
         <option value="title">Title</option>
         <option value="author">Author</option>
         <option value="publisher">Publisher</option>
       </select>
 
-      <label>Order</label>
+      {/* Order */}
+      <label htmlFor="order">Order</label>
       <select
+        id="order"
         value={order}
-        onChange={(e) => setSort({ sortBy, order: e.target.value })}
+        onChange={(e) =>
+          dispatch(setSort({ sortBy, order: e.target.value }))
+        }
       >
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
@@ -64,12 +75,4 @@ const BooksList = ({ books, sortBy, order, fetchBooks, setSort }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  books: state.books.books,
-  sortBy: state.books.sortBy,
-  order: state.books.order,
-});
-
-export default connect(mapStateToProps, { fetchBooks, setSort })(BooksList);
-
-
+export default BooksList;

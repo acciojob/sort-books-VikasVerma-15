@@ -26,7 +26,7 @@ const BooksList = () => {
       <h1>Books List</h1>
 
       {/* Sort By */}
-      <label htmlFor="sortBy">Sort by</label>
+      <label htmlFor="sortBy">Sort by:</label>
       <select
         id="sortBy"
         value={sortBy}
@@ -40,7 +40,7 @@ const BooksList = () => {
       </select>
 
       {/* Order */}
-      <label htmlFor="order">Order</label>
+      <label htmlFor="order">Order:</label>
       <select
         id="order"
         value={order}

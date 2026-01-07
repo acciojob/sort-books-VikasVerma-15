@@ -3,7 +3,7 @@ import { setSortBy, setOrder } from "../redux/booksSlice";
 
 const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, sortBy, order } = useSelector(state => state.books);
+const { books, sortBy, order } = useSelector((state) => state.books);
 
   const sortedBooks = [...books].sort((a, b) => {
     if (a[sortBy] < b[sortBy]) return order === "asc" ? -1 : 1;

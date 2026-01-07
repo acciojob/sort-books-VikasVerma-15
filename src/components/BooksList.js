@@ -23,28 +23,36 @@ const BooksList = () => {
     <div>
       <h1>Books List</h1>
 
-      <label>Sort by:</label>
-      <select
-        value={sortBy}
-        onChange={(e) =>
-          dispatch(setSort({ sortBy: e.target.value, order }))
-        }
-      >
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="publisher">Publisher</option>
-      </select>
+      <div>
+        <label>
+          Sort by:
+          <select
+            value={sortBy}
+            onChange={(e) =>
+              dispatch(setSort({ sortBy: e.target.value, order }))
+            }
+          >
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+          </select>
+        </label>
+      </div>
 
-      <label>Order:</label>
-      <select
-        value={order}
-        onChange={(e) =>
-          dispatch(setSort({ sortBy, order: e.target.value }))
-        }
-      >
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-      </select>
+      <div>
+        <label>
+          Order:
+          <select
+            value={order}
+            onChange={(e) =>
+              dispatch(setSort({ sortBy, order: e.target.value }))
+            }
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </label>
+      </div>
 
       <table>
         <thead>
@@ -52,6 +60,7 @@ const BooksList = () => {
             <th>Title</th>
             <th>Author</th>
             <th>Publisher</th>
+            <th>ISBN</th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +69,7 @@ const BooksList = () => {
               <td>{book.title}</td>
               <td>{book.author}</td>
               <td>{book.publisher}</td>
+              <td>{book.isbn}</td>
             </tr>
           ))}
         </tbody>
@@ -69,4 +79,3 @@ const BooksList = () => {
 };
 
 export default BooksList;
-

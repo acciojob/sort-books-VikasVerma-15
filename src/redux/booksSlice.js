@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// ✅ EXACTLY 60 books
+// EXACTLY 60 BOOKS
 const booksData = Array.from({ length: 60 }, (_, i) => ({
   id: i + 1,
   title: `Book ${String.fromCharCode(65 + (i % 26))} ${i}`,
   author: `Author ${i}`,
-  year: 2000 + (i % 20)
+  publisher: `Publisher ${i}`,
+  isbn: `ISBN-${i}`
 }));
 
 const booksSlice = createSlice({

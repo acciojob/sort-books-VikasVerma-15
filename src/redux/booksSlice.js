@@ -1,31 +1,29 @@
-import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooksFromAPI } from "../services/api";
+
+// ✅ EXACTLY 60 books
+const booksData = Array.from({ length: 60 }, (_, i) => ({
+  id: i + 1,
+  title: `Book ${String.fromCharCode(65 + (i % 26))} ${i}`,
+  author: `Author ${i}`,
+  year: 2000 + (i % 20)
+}));
 
 const booksSlice = createSlice({
   name: "books",
   initialState: {
-    books: [],
+    books: booksData,
     sortBy: "title",
     order: "asc"
   },
   reducers: {
-    setBooks(state, action) {
-      state.books = action.payload;
+    setSortBy(state, action) {
+      state.sortBy = action.payload;
     },
-    setSort(state, action) {
-      state.sortBy = action.payload.sortBy;
-      state.order = action.payload.order;
+    setOrder(state, action) {
+      state.order = action.payload;
     }
   }
 });
 
-export const { setBooks, setSort } = booksSlice.actions;
-
-export const fetchBooks = () => (dispatch) => {
-  fetchBooksFromAPI().then((books) => {
-    dispatch(setBooks(books));
-  });
-};
-
+export const { setSortBy, setOrder } = booksSlice.actions;
 export default booksSlice.reducer;

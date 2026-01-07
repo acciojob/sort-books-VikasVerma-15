@@ -1,75 +1,52 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks, setSort } from "../redux/booksSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setSortBy, setOrder } from "../features/booksSlice";
 
 const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, sortBy, order } = useSelector((state) => state);
-
-  useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
+  const { books, sortBy, order } = useSelector(state => state.books);
 
   const sortedBooks = [...books].sort((a, b) => {
-    const aVal = (a[sortBy] || "").toLowerCase();
-    const bVal = (b[sortBy] || "").toLowerCase();
-
-    if (aVal < bVal) return order === "asc" ? -1 : 1;
-    if (aVal > bVal) return order === "asc" ? 1 : -1;
+    if (a[sortBy] < b[sortBy]) return order === "asc" ? -1 : 1;
+    if (a[sortBy] > b[sortBy]) return order === "asc" ? 1 : -1;
     return 0;
   });
 
   return (
     <div>
-      <h1>Books List</h1>
+      {/* Sort By Dropdown */}
+      <select
+        value={sortBy}
+        onChange={(e) => dispatch(setSortBy(e.target.value))}
+      >
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="year">Year</option>
+      </select>
 
-      <div>
-        <label>
-          Sort by:
-          <select
-            value={sortBy}
-            onChange={(e) =>
-              dispatch(setSort({ sortBy: e.target.value, order }))
-            }
-          >
-            <option value="title">Title</option>
-            <option value="author">Author</option>
-            <option value="publisher">Publisher</option>
-          </select>
-        </label>
-      </div>
+      {/* Order Dropdown */}
+      <select
+        value={order}
+        onChange={(e) => dispatch(setOrder(e.target.value))}
+      >
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
 
-      <div>
-        <label>
-          Order:
-          <select
-            value={order}
-            onChange={(e) =>
-              dispatch(setSort({ sortBy, order: e.target.value }))
-            }
-          >
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </label>
-      </div>
-
+      {/* Table */}
       <table>
         <thead>
           <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Publisher</th>
-            <th>ISBN</th>
+            <th>Year</th>
           </tr>
         </thead>
         <tbody>
-          {sortedBooks.map((book, index) => (
-            <tr key={index}>
+          {sortedBooks.map(book => (
+            <tr key={book.id}>
               <td>{book.title}</td>
               <td>{book.author}</td>
-              <td>{book.publisher}</td>
-              <td>{book.isbn}</td>
+              <td>{book.year}</td>
             </tr>
           ))}
         </tbody>
